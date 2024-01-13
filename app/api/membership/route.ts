@@ -13,7 +13,14 @@ export async function POST(req: NextRequest) {
   try {
     const data = (await req.json()) as Inputs;
     const auth = new google.auth.GoogleAuth({
-      keyFilename: filePath,
+			credentials: {
+				type: "service_account",
+				client_email: process.env.CLIENT_EMAIL,
+				token_url: "https://oauth2.googleapis.com/token",
+				project_id: process.env.PROJECT_ID,
+				private_key: process.env.PRIVATE_KEY,
+				client_id: process.env.CLIENT_ID,
+			},
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
